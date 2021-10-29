@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="shortcut icon" href="#" />
+    <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.9.1/axios.js'
+            integrity='sha512-Kg0CewqPNO/ziOJuCq5eyl3P/V6OLz/Lb1I2m+yKS3lHZcGVFN/KOew18rWP+kTsL7haYdaqGjwHQCZrN0heLQ=='
+            crossorigin='anonymous'></script>
+    <script>
+        let data = {
+            "Id": "17"   //訂單id
+        };
+        let c = window.location.search.split(`=`)[1].split(`&`)[0];
+        var url2 = `https://localhost:44316/api/Pay/Postconfirm?transactionId=${c}`;
+        axios.post(url2, data)
+            .then(function (response) {
+                console.log(response.data);
+            });
+
+        var url3 = `https://localhost:44316/api/Pay/Put`;
+        axios.put(url3, data)
+            .then(function (response) {
+                console.log(response.data);
+            });
+    </script>
+</head>
+
+<body>
+    付款成功!
+</body>
+</html>

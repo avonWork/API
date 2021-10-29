@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        let a = window.location.search.split(`=`)[1].split(`&`)[0];
+        let b = window.location.search.split(`=`)[2].split(`&`)[0];
+        let c = window.location.search.split(`=`)[3].split(`&`)[0];
+        let d = "";
+        let access_token = "";
+        var url2 = `https://localhost:44316/api/Linelogin/GetLineInfo?friendship_status_changed=${a}&code=${b}&state=${c}`;
+        if (window.location.href.indexOf("error") > -1) {
+            var url = `https://localhost:44316/api/Linelogin/GetLineInfoError`;
+            axios.get(url)
+                .then(function (response) {
+                    console.log(response.data);
+                });
+        };
+        if (window.location.href.indexOf("error") === -1) {
+            axios.get(url2)
+                .then(function (response) {
+                    //console.log(response.data);
+                    d = response.data.id_token;
+                    access_token = response.data.access_token;
+                    console.log(response.data.friend); //response.data.friend.friendFlag
+                    //console.log(d);
+                    var url3 = `https://localhost:44316/api/Linelogin/PostLinePayload?id_token=${d}`;
+
+                    axios.post(url3)
+                        .then(function (res) {
+                            console.log(res.data);
+                        }).catch(function (error) {
+                            console.log(error);
+                        });
+                });
+        }
+
+                                                                                                                    //url4 = `https://localhost:44304/api/Linelogin/RevokeLineLoginUrl?access_token=${access_token}`;
+                                                                                                                                                    //登出
+                                                                                                                                                    //function revokeLineApp() {
+                                                                                                                                                    //    if (access_token === "") {
+                                                                                                                                                    //        $("#result").html("請先登入Line");
+                                                                                                                                                    //    } else {
+                                                                                                                                                    //        axios.post(url4)
+                                                                                                                                                    //            .then(function (res) {
+                                                                                                                                                    //                console.log(res.data);
+                                                                                                                                                    //            }).catch(function (error) {
+                                                                                                                                                    //                console.log(error);
+                                                                                                                                                    //            });
+                                                                                                                                                    //    }
+                                                                                                                                                    //}
+    </script>
+</head>
+<body>
+    觀迎登入
+
+    <a href="javascript:revokeLineApp();">
+        登出
+    </a>
+    <hr />
+    <div id="result"></div>
+</body>
+</html>

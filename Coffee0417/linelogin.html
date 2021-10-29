@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Demo Line Login</title>
+</head>
+<body>
+    <a href="javascript:openPopupWindow()">
+        點我Line Login
+    </a>
+    <hr />
+    <div id="result"></div>
+
+    <!--引用jQuery-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript">
+        let LineLoginUrl = "https://localhost:44316/api/Linelogin/GetLineLoginUrl";
+    </script>
+    <script type="text/javascript">
+        //登入
+        function openPopupWindow() {
+            $("#result").html("");//清空顯示結果
+            //另開popup window前，每次都取得新的LineLoginUrl(每次Url的state參數都不一樣)
+            $.ajax({
+                url: LineLoginUrl,
+                method: "get",
+                success: function (url) {
+                    window.open(url, "_blank", "width=800px,height=600px");
+                }, error: function (xhr) {
+                    console.log(xhr);
+                }
+            });
+        }
+    </script>
+</body>
+</html>

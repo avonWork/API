@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        let aa = '';
+        //訂單id
+        let orderid = '1';
+        var url = `https://localhost:44316/api/Pay/Getreserve/${orderid}`;
+        //會員token
+        const MyToken = "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOiJiY2NkMjI5NS0xMjU4LTQwOGYtODI3OS1lMGUzYzdmNmQzOWIiLCJQZXJtaXNzaW9uIjoxLCJpYXQiOiIyMDIxLzQvMTkg5LiL5Y2IIDA1OjM3OjAxIiwiRXhwIjoiMjAyMS80LzIwIOS4i-WNiCAwNTozNzowMSJ9.pL968vGSK6iwPH5LKb06oVHETPFqOJAPFS8JfHu8nLzohnpUmzgyJXpMmN_B19mgAYWhJhatMDoHS0NL4k9qrQ";
+        const license = { headers: { Authorization: `Bearer ${MyToken}` } };
+        axios.get(url, license)
+            .then(function (response) {
+                console.log(response.data);
+                console.log(response.data.web);
+                aa = response.data.web;
+
+            });
+
+        function ShowMeDate() {
+            window.location.href = aa;
+        }
+    </script>
+</head>
+<body>
+    <button onclick="ShowMeDate()">付款</button>
+</body>
+</html>
